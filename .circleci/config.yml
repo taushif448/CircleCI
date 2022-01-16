@@ -30,7 +30,7 @@ jobs:
       - run:
           name: "UiPath Run Test cases in the project"
           command: 
-             . 'C:\scripts\UiPathRunTest.ps1' "http://cloud.uipath.com" TaushifDefault -userKey $env:uipathUserKey -account_name $env:uipathAccountName -project_path "C:\workingdir\project.json" -result_path "C:\workingdir\output_results\junit_rpa_test_result.xml" -out junit  -folder_organization_unit Default
+             . 'C:\scripts\UiPathRunTest.ps1' "http://cloud.uipath.com" TaushifDefault -userKey $env:uipathUserKey -account_name $env:uipathAccountName -project_path "C:\workingdir\project.json" -environment DEV -result_path "C:\workingdir\output_results\junit_rpa_test_result.xml" -out junit  -folder_organization_unit Default
       - run:
           name: "UiPath Run Testsets in orchestrator"
           command: 
