@@ -30,11 +30,11 @@ jobs:
       - run:
           name: "UiPath Run Test cases in the project"
           command: 
-             . 'C:\scripts\UiPathRunTest.ps1' "http://cloud.uipath.com" TaushifDefault -userKey $env:uipathUserKey -account_name $env:uipathAccountName -project_path "C:\workingdir\project.json" -environment DEV -result_path "C:\workingdir\output_results\junit_rpa_test_result.xml" -out junit  -folder_organization_unit Default
+             . 'C:\scripts\UiPathRunTest.ps1' "http://cloud.uipath.com" TaushifDefault -userKey $uipathUserKey -account_name $uipathAccountName -project_path "C:\workingdir\project.json" -environment DEV -result_path "C:\workingdir\output_results\junit_rpa_test_result.xml" -out junit  -folder_organization_unit Default
       - run:
           name: "UiPath Run Testsets in orchestrator"
           command: 
-             . 'C:\scripts\UiPathRunTest.ps1' "http://cloud.uipath.com" TaushifDefault -userKey $env:uipathUserKey -account_name $env:uipathAccountName -testset "CircleCI-TestSet" -result_path "C:\workingdir\output_results\junit_rpa_testset_result.xml" -out junit  -folder_organization_unit Default
+             . 'C:\scripts\UiPathRunTest.ps1' "http://cloud.uipath.com" TaushifDefault -userKey $uipathUserKey -account_name $uipathAccountName -testset "CircleCI-TestSet" -result_path "C:\workingdir\output_results\junit_rpa_testset_result.xml" -out junit  -folder_organization_unit Default
       - store_test_results:
           path: "C:\\workingdir\\output_results"
       
@@ -43,23 +43,23 @@ jobs:
           name: "Deploy Project"
           shell: powershell.exe
           command: 
-            . 'C:\scripts\UiPathDeploy.ps1' "C:\\workingdir\\output\\" "http://cloud.uipath.com" "TaushifDefault" -account_name $env:uipathAccountName -userKey $env:uipathUserKey -folder_organization_unit Default
+            . 'C:\scripts\UiPathDeploy.ps1' "C:\\workingdir\\output\\" "http://cloud.uipath.com" "TaushifDefault" -account_name $uipathAccountName -userKey $uipathUserKey -folder_organization_unit Default
       
       # UiPath Run process
       - run:
           name: "Run Process"
           shell: powershell.exe
           command: 
-            . 'C:\scripts\UiPathJobRun.ps1' -processName SimpleRPAFlow -uriOrch https://cloud.uipath.com -tenantlName TaushifDefault -accountName $env:uipathAccountName -userKey $env:uipathUserKey -folder_organization_unit MyWork-Dev -wait false
+            . 'C:\scripts\UiPathJobRun.ps1' -processName SimpleRPAFlow -uriOrch https://cloud.uipath.com -tenantlName TaushifDefault -accountName $uipathAccountName -userKey $uipathUserKey -folder_organization_unit MyWork-Dev -wait false
 
       # UiPath Manage Asset
       - run:
           name: "Deploy Assets"
           shell: powershell.exe
           command: 
-            . 'C:\scripts\UiPathManageAssets.ps1' deploy "C:\workingdir\assets\assets_to_deploy.csv" "https://cloud.uipath.com" TaushifDefault -UserKey $env:uipathUserKey -account_name $env:uipathAccountName -folder_organization_unit Default -language en-US
+            . 'C:\scripts\UiPathManageAssets.ps1' deploy "C:\workingdir\assets\assets_to_deploy.csv" "https://cloud.uipath.com" TaushifDefault -UserKey $uipathUserKey -account_name $uipathAccountName -folder_organization_unit Default -language en-US
       - run:
           name: "Delete Assets"
           shell: powershell.exe
           command: |
-            . 'C:\scripts\UiPathManageAssets.ps1' delete "C:\workingdir\assets\assets_to_delete.csv" "https://cloud.uipath.com" TaushifDefault -UserKey $env:uipathUserKey -account_name $env:uipathAccountName -folder_organization_unit Default -language en-US
+            . 'C:\scripts\UiPathManageAssets.ps1' delete "C:\workingdir\assets\assets_to_delete.csv" "https://cloud.uipath.com" TaushifDefault -UserKey $uipathUserKey -account_name $uipathAccountName -folder_organization_unit Default -language en-US
